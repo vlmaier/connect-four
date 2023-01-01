@@ -1,0 +1,20 @@
+type: code
+files:
+- name: src/Main.kt
+  visible: true
+  text: |-
+    fun main() {
+        // do not touch the lines above
+        // declare and initialize a variable here
+
+
+        // do not touch the lines below
+        println(bigNumber)
+    }
+  learner_created: false
+feedback_link: https://hyperskill.org/learn/step/4386#comment
+status: Solved
+feedback:
+  message: <html>Correct solution</html>
+  time: "Sun, 01 Jan 2023 22:18:28 UTC"
+record: -1

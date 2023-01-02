@@ -1,0 +1,13 @@
+type: code
+files:
+- name: src/Main.kt
+  visible: true
+  text: "fun main() { \n    val number = readln().toDouble() \n    val logNumber =\
+    \ Math.log10 number // fix this line\n    println(logNumber) \n}"
+  learner_created: false
+feedback_link: https://hyperskill.org/learn/step/23010#comment
+status: Solved
+feedback:
+  message: <html>Correct solution</html>
+  time: "Mon, 02 Jan 2023 18:06:42 UTC"
+record: -1

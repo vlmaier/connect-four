@@ -1,0 +1,22 @@
+type: choice
+is_multiple_choice: false
+options:
+- text: <code>System.`in`</code> represents the standard input
+- text: <code>scanner</code> is used to read values
+- text: <code>scanner.nextInt()</code> reads an integer number
+- text: "<code>scanner.next()</code> reads a whole string line, for example <code>\"\
+    Hello, World!\"</code>"
+files:
+- name: src/Main.kt
+  visible: true
+  text: |
+    // You can experiment here, it won’t be checked
+
+    fun main(args: Array<String>) {
+      // put your code here
+    }
+  learner_created: false
+feedback_link: https://hyperskill.org/learn/step/4447#comment
+status: Solved
+record: -1
+local_check: false

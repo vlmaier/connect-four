@@ -1,6 +1,6 @@
 # Connect Four
 
-Repository for learning Kotlin w/ JetBrains Academy Connect [Four Project](https://hyperskill.org/projects/202?track=18).
+Repository for learning Kotlin w/ JetBrains Academy [Connect Four](https://hyperskill.org/projects/202?track=18) Project.
 
 ## Learning outcomes
 

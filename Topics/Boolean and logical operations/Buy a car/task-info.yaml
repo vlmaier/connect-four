@@ -1,0 +1,34 @@
+type: choice
+is_multiple_choice: true
+options:
+- text: "<code>enoughMoney</code> is <code>true</code>, <code>mercedes</code> is <code>false</code>,\
+    \ <code>red</code> is <code>false</code>."
+- text: "<code>enoughMoney</code> is <code>true</code>, <code>mercedes</code> is <code>false</code>,\
+    \ <code>red</code> is <code>true</code>."
+- text: "<code>enoughMoney</code> is <code>true</code>, <code>mercedes</code> is <code>true</code>,\
+    \ <code>red</code> is <code>false</code>."
+- text: "<code>enoughMoney</code> is <code>true</code>, <code>mercedes</code> is <code>true</code>,\
+    \ <code>red</code> is <code>true</code>."
+- text: "<code>enoughMoney</code> is <code>false</code>, <code>mercedes</code> is\
+    \ <code>false</code>, <code>red</code> is <code>true</code>."
+files:
+- name: src/Main.kt
+  visible: true
+  text: |
+    // You can experiment here, it won’t be checked
+
+    fun main(args: Array<String>) {
+      // put your code here
+    }
+  learner_created: false
+feedback_link: https://hyperskill.org/learn/step/4524#comment
+status: Solved
+feedback:
+  message: <html>Correct solution</html>
+  time: "Tue, 03 Jan 2023 20:18:48 UTC"
+record: -1
+selected_options:
+- 0
+- 1
+- 3
+local_check: false

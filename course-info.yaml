@@ -10,4 +10,5 @@ summary: "<p>Connect Four is a fun game for two players. The players place discs
 programming_language: Kotlin
 content:
 - Topics
+- Connect Four
 mode: Study

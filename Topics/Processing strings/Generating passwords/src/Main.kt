@@ -17,11 +17,9 @@ fun randomString(a: Int, b: Int, c: Int, n: Int): String {
     val randomDigits = List(c) { digits.random() }.joinToString("")
     val randomPadding = List(kotlin.math.abs(a + b + c - n)) { all.random() }.joinToString("")
     val password = "$randomUppercase$randomLowercase$randomDigits$randomPadding".toCharArray()
-    // shuffle at least once for randomness
-    password.shuffle()
-    // find repeated characters
-    while ("(.)\\1".toRegex().find(String(password)) != null) {
+
+    do {
         password.shuffle()
-    }
+    } while ("(.)\\1".toRegex().find(String(password)) != null)
     return String(password)
 }

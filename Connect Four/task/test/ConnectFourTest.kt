@@ -6,45 +6,6 @@ import org.hyperskill.hstest.testing.TestedProgram
 class ConnectFourTest : StageTest<Any>() {
 
     @DynamicTest
-    fun cf4Test(): CheckResult {
-        val whiteDiscs = mutableListOf<Pair<Int, Int>>()
-        val blackDiscs = mutableListOf<Pair<Int, Int>>()
-        val inputDimensions = listOf<String>("5x5", "9X9", "9X5", "", "   7   x   9   ", "  8  X   6   ", "\t  9 \tX \t5  \t ")
-
-        for (input in inputDimensions) {
-            val main = TestedProgram()
-            var outputString = main.start().trim()
-
-            var position = checkOutput(outputString.lowercase(), 0, "connect four")
-            if (position == -1) return CheckResult(false, "Wrong program title.")
-            position = checkOutput(outputString.lowercase(), position, "first player's name:")
-            if (position == -1) return CheckResult(false, "Wrong prompt for first player's name.")
-
-            outputString = main.execute("Anna").trim()
-            position = checkOutput(outputString.lowercase(), 0, "second player's name:")
-            if (position == -1) return CheckResult(false, "Wrong prompt for second player's name.")
-
-            outputString = main.execute("Joan").trim()
-            position = checkOutput(outputString.lowercase(), 0,
-                "set the board dimensions (rows x columns)", "press enter for default (6 x 7)")
-            if (position == -1) return CheckResult(false, "Wrong prompt for board dimensions.")
-
-            outputString = main.execute(input).trim()
-            val (r, c) = if (input == "") listOf("6", "7") else input.lowercase().split("x").map{ it -> it.trim() }
-
-            position = checkOutput(outputString.lowercase(), 0, "anna vs joan", "$r x $c board")
-            if (position == -1) return CheckResult(false, "Wrong game information output.")
-            position = checkOutput(outputString.lowercase(), position,
-                * getBoard(r.toInt(), c.toInt() ,whiteDiscs, blackDiscs))
-            if (position == -1) return CheckResult(false, "Wrong board output.")
-
-            main.stop()
-        }
-
-        return CheckResult.correct()
-    }
-
-    @DynamicTest
     fun cf2Test(): CheckResult {
         val main = TestedProgram()
         var outputString = main.start().trim()
@@ -121,6 +82,263 @@ class ConnectFourTest : StageTest<Any>() {
         outputString = main.execute("9X5").trim()
         position = checkOutput(outputString.lowercase(), 0, "anna vs joan", "9 x 5 board")
         if (position == -1) return CheckResult(false, "Wrong game information output.")
+
+        main.stop()
+        return CheckResult.correct()
+    }
+
+    @DynamicTest
+    fun cf4Test(): CheckResult {
+        val whiteDiscs = mutableListOf<Pair<Int, Int>>()
+        val blackDiscs = mutableListOf<Pair<Int, Int>>()
+        val inputDimensions = listOf<String>("5x5", "9X9", "9X5", "", "   7   x   9   ", "  8  X   6   ", "\t  9 \tX \t5  \t ")
+
+        for (input in inputDimensions) {
+            val main = TestedProgram()
+            var outputString = main.start().trim()
+
+            var position = checkOutput(outputString.lowercase(), 0, "connect four")
+            if (position == -1) return CheckResult(false, "Wrong program title.")
+            position = checkOutput(outputString.lowercase(), position, "first player's name:")
+            if (position == -1) return CheckResult(false, "Wrong prompt for first player's name.")
+
+            outputString = main.execute("Anna").trim()
+            position = checkOutput(outputString.lowercase(), 0, "second player's name:")
+            if (position == -1) return CheckResult(false, "Wrong prompt for second player's name.")
+
+            outputString = main.execute("Joan").trim()
+            position = checkOutput(outputString.lowercase(), 0,
+                "set the board dimensions (rows x columns)", "press enter for default (6 x 7)")
+            if (position == -1) return CheckResult(false, "Wrong prompt for board dimensions.")
+
+            outputString = main.execute(input).trim()
+            val (r, c) = if (input == "") listOf("6", "7") else input.lowercase().split("x").map{ it -> it.trim() }
+
+            position = checkOutput(outputString.lowercase(), 0, "anna vs joan", "$r x $c board")
+            if (position == -1) return CheckResult(false, "Wrong game information output.")
+            position = checkOutput(outputString.lowercase(), position,
+                * getBoard(r.toInt(), c.toInt() ,whiteDiscs, blackDiscs))
+            if (position == -1) return CheckResult(false, "Wrong board output.")
+            main.stop()
+        }
+
+        return CheckResult.correct()
+    }
+
+    @DynamicTest
+    fun cf5Test(): CheckResult {
+        val whiteDiscs = mutableListOf<Pair<Int, Int>>()
+        val blackDiscs = mutableListOf<Pair<Int, Int>>()
+
+        val main = TestedProgram()
+        var outputString = main.start().trim()
+
+        var position = checkOutput(outputString.lowercase(), 0, "connect four")
+        if (position == -1) return CheckResult(false, "Wrong program title.")
+        position = checkOutput(outputString.lowercase(), position, "first player's name:")
+        if (position == -1) return CheckResult(false, "Wrong prompt for first player's name.")
+
+        outputString = main.execute("Anna").trim()
+        position = checkOutput(outputString.lowercase(), 0, "second player's name:")
+        if (position == -1) return CheckResult(false, "Wrong prompt for second player's name.")
+
+        outputString = main.execute("Joan").trim()
+        position = checkOutput(outputString.lowercase(), 0,
+            "set the board dimensions (rows x columns)", "press enter for default (6 x 7)")
+        if (position == -1) return CheckResult(false, "Wrong prompt for board dimensions.")
+
+        outputString = main.execute("5X6").trim()
+        position = checkOutput(outputString.lowercase(), 0, "anna vs joan", "5 x 6 board")
+        if (position == -1) return CheckResult(false, "Wrong game information output.")
+        position = checkOutput(outputString.lowercase(), position,
+            * getBoard(5, 6 ,whiteDiscs, blackDiscs))
+        if (position == -1) return CheckResult(false, "Wrong board output.")
+        position = checkOutput(outputString.lowercase(), position, "anna\'s turn")
+        if (position == -1) return CheckResult(false, "Wrong prompt for player's turn.")
+
+        for (row in 1..5) {
+            for (col in 1..6) {
+                outputString = main.execute(col.toString()).trim()
+                if ( col % 2 == 1 ) whiteDiscs.add(Pair(row, col)) else blackDiscs.add(Pair(row, col))
+                position = checkOutput(outputString.lowercase(), 0,
+                    * getBoard(5, 6 ,whiteDiscs, blackDiscs))
+                if (position == -1) return CheckResult(false, "Wrong board output.")
+                val checkOutStr = if ( col % 2 == 0 ) "anna\'s turn" else "joan\'s turn"
+                position = checkOutput(outputString.lowercase(), position, checkOutStr)
+                if (position == -1) return CheckResult(false, "Wrong prompt for player's turn.")
+            }
+        }
+
+        outputString = main.execute("end").trim()
+        position = checkOutput(outputString.lowercase(), 0, "game over!")
+        if (position == -1) return CheckResult(false, "Wrong game over message.")
+
+        main.stop()
+        return CheckResult.correct()
+    }
+
+    @DynamicTest
+    fun cf6Test(): CheckResult {
+        val whiteDiscs = mutableListOf<Pair<Int, Int>>()
+        val blackDiscs = mutableListOf<Pair<Int, Int>>()
+
+        val main = TestedProgram()
+        var outputString = main.start().trim()
+
+        var position = checkOutput(outputString.lowercase(), 0, "connect four")
+        if (position == -1) return CheckResult(false, "Wrong program title.")
+        position = checkOutput(outputString.lowercase(), position, "first player's name:")
+        if (position == -1) return CheckResult(false, "Wrong prompt for first player's name.")
+
+        outputString = main.execute("Anna").trim()
+        position = checkOutput(outputString.lowercase(), 0, "second player's name:")
+        if (position == -1) return CheckResult(false, "Wrong prompt for second player's name.")
+
+        outputString = main.execute("Joan").trim()
+        position = checkOutput(outputString.lowercase(), 0,
+            "set the board dimensions (rows x columns)", "press enter for default (6 x 7)")
+        if (position == -1) return CheckResult(false, "Wrong prompt for board dimensions.")
+
+        outputString = main.execute("7X7").trim()
+        position = checkOutput(outputString.lowercase(), 0, "anna vs joan", "7 x 7 board")
+        if (position == -1) return CheckResult(false, "Wrong game information output.")
+        position = checkOutput(outputString.lowercase(), position,
+            * getBoard(7, 7 ,whiteDiscs, blackDiscs))
+        if (position == -1) return CheckResult(false, "Wrong board output.")
+        position = checkOutput(outputString.lowercase(), position, "anna\'s turn")
+        if (position == -1) return CheckResult(false, "Wrong prompt for player's turn.")
+
+        for (row in 1..7) {
+            for (col in 1..7) {
+                outputString = main.execute(col.toString()).trim()
+                if ( (row * 7 + col) % 2 == 0 ) whiteDiscs.add(Pair(row, col)) else blackDiscs.add(Pair(row, col))
+                position = checkOutput(outputString.lowercase(), 0,
+                    * getBoard(7, 7 ,whiteDiscs, blackDiscs))
+                if (position == -1) return CheckResult(false, "Wrong board output.")
+                val checkOutStr = if ( (row * 7 + col) % 2 == 1 ) "anna\'s turn" else "joan\'s turn"
+                position = checkOutput(outputString.lowercase(), position, checkOutStr)
+                if (position == -1) return CheckResult(false, "Wrong prompt for player's turn.")
+            }
+        }
+
+        outputString = main.execute("end").trim()
+        position = checkOutput(outputString.lowercase(), 0, "game over!")
+        if (position == -1) return CheckResult(false, "Wrong \"Game over!\" message.")
+
+        if (!main.isFinished) return CheckResult(false, "Program has not finished after end command")
+
+        main.stop()
+        return CheckResult.correct()
+    }
+
+    @DynamicTest
+    fun cf7Test(): CheckResult {
+        val whiteDiscs = mutableListOf<Pair<Int, Int>>()
+        val blackDiscs = mutableListOf<Pair<Int, Int>>()
+
+        val main = TestedProgram()
+        var outputString = main.start().trim()
+
+        var position = checkOutput(outputString.lowercase(), 0, "connect four")
+        if (position == -1) return CheckResult(false, "Wrong program title.")
+        position = checkOutput(outputString.lowercase(), position, "first player's name:")
+        if (position == -1) return CheckResult(false, "Wrong prompt for first player's name.")
+
+        outputString = main.execute("Anna").trim()
+        position = checkOutput(outputString.lowercase(), 0, "second player's name:")
+        if (position == -1) return CheckResult(false, "Wrong prompt for second player's name.")
+
+        outputString = main.execute("Joan").trim()
+        position = checkOutput(outputString.lowercase(), 0,
+            "set the board dimensions (rows x columns)", "press enter for default (6 x 7)")
+        if (position == -1) return CheckResult(false, "Wrong prompt for board dimensions.")
+
+        outputString = main.execute("5X5").trim()
+        position = checkOutput(outputString.lowercase(), 0, "anna vs joan", "5 x 5 board")
+        if (position == -1) return CheckResult(false, "Wrong game information output.")
+        position = checkOutput(outputString.lowercase(), position,
+            * getBoard(5, 5 ,whiteDiscs, blackDiscs))
+        if (position == -1) return CheckResult(false, "Wrong board output.")
+        position = checkOutput(outputString.lowercase(), position, "anna\'s turn")
+        if (position == -1) return CheckResult(false, "Wrong prompt for player's turn.")
+
+        for (row in 1..5) {
+            for (col in 1..5) {
+                outputString = main.execute(col.toString()).trim()
+                if ( (row * 5 + col) % 2 == 0 ) whiteDiscs.add(Pair(row, col)) else blackDiscs.add(Pair(row, col))
+                position = checkOutput(outputString.lowercase(), 0,
+                    * getBoard(5, 5 ,whiteDiscs, blackDiscs))
+                if (position == -1) return CheckResult(false, "Wrong board output.")
+                val checkOutStr = if ( (row * 5 + col) % 2 == 1 ) "anna\'s turn" else "joan\'s turn"
+                position = checkOutput(outputString.lowercase(), position, checkOutStr)
+                if (position == -1) return CheckResult(false, "Wrong prompt for player's turn.")
+            }
+        }
+
+        for (col in 1..5) {
+            outputString = main.execute(col.toString()).trim()
+            position = checkOutput(outputString.lowercase(), 0, "column $col is full","joan's turn")
+            if (position == -1) return CheckResult(false, "Wrong output after full column error.")
+        }
+
+        outputString = main.execute("end").trim()
+        position = checkOutput(outputString.lowercase(), 0, "game over!")
+        if (position == -1) return CheckResult(false, "Wrong \"Game over!\" message.")
+
+        main.stop()
+        return CheckResult.correct()
+    }
+
+    @DynamicTest
+    fun cf8Test(): CheckResult {
+        val whiteDiscs = mutableListOf<Pair<Int, Int>>()
+        val blackDiscs = mutableListOf<Pair<Int, Int>>()
+
+        val main = TestedProgram()
+        var outputString = main.start().trim()
+
+        var position = checkOutput(outputString.lowercase(), 0, "connect four")
+        if (position == -1) return CheckResult(false, "Wrong program title.")
+        position = checkOutput(outputString.lowercase(), position, "first player's name:")
+        if (position == -1) return CheckResult(false, "Wrong prompt for first player's name.")
+
+        outputString = main.execute("Anna").trim()
+        position = checkOutput(outputString.lowercase(), 0, "second player's name:")
+        if (position == -1) return CheckResult(false, "Wrong prompt for second player's name.")
+
+        outputString = main.execute("Joan").trim()
+        position = checkOutput(outputString.lowercase(), 0,
+            "set the board dimensions (rows x columns)", "press enter for default (6 x 7)")
+        if (position == -1) return CheckResult(false, "Wrong prompt for board dimensions.")
+
+        outputString = main.execute("5X5").trim()
+        position = checkOutput(outputString.lowercase(), 0, "anna vs joan", "5 x 5 board")
+        if (position == -1) return CheckResult(false, "Wrong game information output.")
+        position = checkOutput(outputString.lowercase(), position,
+            * getBoard(5, 5 ,whiteDiscs, blackDiscs))
+        if (position == -1) return CheckResult(false, "Wrong board output.")
+        position = checkOutput(outputString.lowercase(), position, "anna\'s turn")
+        if (position == -1) return CheckResult(false, "Wrong prompt for player's turn.")
+
+        var input = mutableListOf<String>("0", "6", "7", "10", "122")
+        for (move in input) {
+            outputString = main.execute(move).trim()
+            position = checkOutput(outputString.lowercase(), 0, "the column number is out of range (1 - 5)",
+                "anna\'s turn")
+            if (position == -1) return CheckResult(false,"Wrong message for out of range input.")
+        }
+
+        input = mutableListOf<String>("one", "7i", "k", "12z")
+        for (move in input) {
+            outputString = main.execute(move).trim()
+            position = checkOutput(outputString.lowercase(), 0, "incorrect column number",
+                "anna\'s turn")
+            if (position == -1) return CheckResult(false,"Wrong message for invalid column number.")
+        }
+
+        outputString = main.execute("end").trim()
+        position = checkOutput(outputString.lowercase(), 0, "game over!")
+        if (position == -1) return CheckResult(false, "Wrong \"Game over!\" message.")
 
         main.stop()
         return CheckResult.correct()

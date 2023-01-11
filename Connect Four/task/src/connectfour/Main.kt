@@ -13,6 +13,7 @@ fun main() {
     val dimensions = askForDimensions()
     println("$firstPlayer VS $secondPlayer")
     println("${dimensions.first} X ${dimensions.last} board")
+    printBoard(dimensions.first, dimensions.last)
 }
 
 fun askForDimensions(): IntRange {
@@ -40,4 +41,12 @@ fun askForDimensions(): IntRange {
         return askForDimensions()
     }
     return rows..columns
+}
+
+fun printBoard(rows: Int, columns: Int) {
+    println(" ${(1..columns).toList().joinToString(" ")} ")
+    repeat(rows) {
+        println("║ ".repeat(columns) + "║")
+    }
+    println("╚" + "═╩".repeat(columns - 1) + "═╝")
 }

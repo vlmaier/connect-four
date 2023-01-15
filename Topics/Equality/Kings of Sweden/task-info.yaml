@@ -1,0 +1,13 @@
+type: code
+files:
+- name: src/Main.kt
+  visible: true
+  text: "val kingCharlesTheEleventh = Human()\nval kingCarolusRex = Human()  \n\n\
+    val king = kingCharlesTheEleventh\nking = kingCarolusRex"
+  learner_created: false
+feedback_link: https://hyperskill.org/learn/step/11242#comment
+status: Solved
+feedback:
+  message: <html>Correct solution</html>
+  time: "Sun, 15 Jan 2023 07:56:25 UTC"
+record: -1

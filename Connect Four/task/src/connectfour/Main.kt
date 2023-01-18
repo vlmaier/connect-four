@@ -3,6 +3,12 @@ package connectfour
 const val DEFAULT_ROWS = 6
 const val DEFAULT_COLUMNS = 7
 const val DELIMITER = 'x'
+const val EMPTY = ' '
+const val FIRST_PLAYER_DISK = 'o'
+const val SECOND_PLAYER_DISK = '*'
+var rows = DEFAULT_ROWS
+var columns = DEFAULT_COLUMNS
+val board = mutableListOf<MutableList<Char>>()
 
 fun main() {
     println("Connect Four")
@@ -12,8 +18,12 @@ fun main() {
     val secondPlayer = readln()
     val dimensions = askForDimensions()
     println("$firstPlayer VS $secondPlayer")
-    println("${dimensions.first} X ${dimensions.last} board")
-    printBoard(dimensions.first, dimensions.last)
+    rows = dimensions.first
+    columns = dimensions.last
+    println("$rows X $columns board")
+    initBoard()
+    printBoard()
+    play(Pair(firstPlayer, secondPlayer))
 }
 
 fun askForDimensions(): IntRange {
@@ -43,10 +53,73 @@ fun askForDimensions(): IntRange {
     return rows..columns
 }
 
-fun printBoard(rows: Int, columns: Int) {
-    println(" ${(1..columns).toList().joinToString(" ")} ")
+fun initBoard() {
     repeat(rows) {
-        println("║ ".repeat(columns) + "║")
+        board.add(MutableList(columns) { EMPTY })
+    }
+}
+
+fun printBoard() {
+    println(" ${(1..columns).toList().joinToString(" ")} ")
+    for (row in board) {
+        for (column in row) {
+            print("║$column")
+        }
+        print("║")
+        println()
     }
     println("╚" + "═╩".repeat(columns - 1) + "═╝")
+}
+
+fun play(players: Pair<String, String>) {
+    var currentPlayer = players.first
+    while (true) {
+        val column = askForColumn(currentPlayer)
+        if (column == -1) {
+            continue
+        }
+        if (column != null) {
+            val disk = if (currentPlayer == players.first) FIRST_PLAYER_DISK else SECOND_PLAYER_DISK
+            val isAdded = addToBoard(column, disk)
+            if (!isAdded) {
+                println("Column $column is full")
+                continue
+            }
+        } else {
+            break
+        }
+        printBoard()
+        currentPlayer = if (currentPlayer == players.first) players.second else players.first
+    }
+}
+
+fun askForColumn(playerName: String): Int? {
+    println("$playerName's turn:")
+    val input = readln()
+    if (input == "end") {
+        println("Game over!")
+        return null
+    }
+    if (!"\\d+".toRegex().matches(input)) {
+        println("Incorrect column number")
+        return -1
+    }
+    val column = input.toInt()
+    if (column !in 1..columns) {
+        println("The column number is out of range (1 - $columns)")
+        return -1
+    }
+    return column
+}
+
+fun addToBoard(column: Int, disk: Char): Boolean  {
+    var isAdded = false
+    for (row in board.reversed()) {
+        if (row[column - 1] == EMPTY) {
+            row[column - 1] = disk
+            isAdded = true
+            break
+        }
+    }
+    return isAdded
 }

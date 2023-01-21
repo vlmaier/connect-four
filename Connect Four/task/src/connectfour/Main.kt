@@ -85,12 +85,17 @@ fun play(players: Pair<String, String>) {
                 println("Column $column is full")
                 continue
             }
+            checkWinningCondition()
         } else {
             break
         }
         printBoard()
         currentPlayer = if (currentPlayer == players.first) players.second else players.first
     }
+}
+
+fun checkWinningCondition() {
+    TODO("Not yet implemented")
 }
 
 fun askForColumn(playerName: String): Int? {

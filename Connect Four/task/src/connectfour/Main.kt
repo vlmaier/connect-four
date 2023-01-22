@@ -148,11 +148,11 @@ fun <E> loopDiagonally(matrix: List<List<E>>): String {
 fun <E> transpose(matrix: List<List<E>>): List<List<E>> {
     fun <E> List<E>.head(): E = this.first()
     fun <E> List<E>.tail(): List<E> = this.takeLast(this.size - 1)
-    fun <E> E.append(xs: List<E>): List<E> = listOf(this).plus(xs)
+    fun <E> E.append(array: List<E>): List<E> = listOf(this).plus(array)
 
-    matrix.filter { it.isNotEmpty() }.let { ys ->
-        return when (ys.isNotEmpty()) {
-            true -> ys.map { it.head() }.append(transpose(ys.map { it.tail() }))
+    matrix.filter { it.isNotEmpty() }.let { matrix ->
+        return when (matrix.isNotEmpty()) {
+            true -> matrix.map { it.head() }.append(transpose(matrix.map { it.tail() }))
             else -> emptyList()
         }
     }

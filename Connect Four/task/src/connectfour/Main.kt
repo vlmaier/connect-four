@@ -85,17 +85,81 @@ fun play(players: Pair<String, String>) {
                 println("Column $column is full")
                 continue
             }
-            checkWinningCondition()
         } else {
             break
         }
         printBoard()
+        if (checkWinningCondition()) {
+            println("Player $currentPlayer won")
+            println("Game Over!")
+            break
+        }
+        if (checkDrawCondition()) {
+            println("It is a draw")
+            println("Game Over!")
+            break
+        }
         currentPlayer = if (currentPlayer == players.first) players.second else players.first
     }
 }
 
-fun checkWinningCondition() {
-    TODO("Not yet implemented")
+
+fun checkWinningCondition(): Boolean {
+    var horizontals = ""
+    var verticals = ""
+    for (i in board.indices) {
+        var horizontal = ""
+        var vertical = ""
+        for (j in board.indices) {
+            horizontal += board[i][j]
+            vertical += board[j][i]
+        }
+        verticals += "$vertical#"
+        horizontals += "$horizontal#"
+    }
+    val diagonals = loopDiagonally()
+    val toValidate = (horizontals + verticals + diagonals).replace("\\s".toRegex(), "")
+    return "\\*{4}|o{4}".toRegex().find(toValidate) != null
+}
+
+fun loopDiagonally(): String {
+    var diagonals = loopDiagonally(board)
+    diagonals += loopDiagonally(transpose(board.reversed().toMutableList()))
+    return diagonals
+}
+
+fun <E> loopDiagonally(matrix: List<List<E>>): String {
+    val rows = matrix.size
+    val columns = matrix[0].size
+    var diagonals = ""
+    for (k in 0..(columns + rows - 2)) {
+        var diagonal = ""
+        for (j in 0..k) {
+            val i = k - j
+            if (i < rows && j < columns) {
+                diagonal += matrix[i][j]
+            }
+        }
+        diagonals += "$diagonal#"
+    }
+    return diagonals
+}
+
+fun <E> transpose(matrix: List<List<E>>): List<List<E>> {
+    fun <E> List<E>.head(): E = this.first()
+    fun <E> List<E>.tail(): List<E> = this.takeLast(this.size - 1)
+    fun <E> E.append(xs: List<E>): List<E> = listOf(this).plus(xs)
+
+    matrix.filter { it.isNotEmpty() }.let { ys ->
+        return when (ys.isNotEmpty()) {
+            true -> ys.map { it.head() }.append(transpose(ys.map { it.tail() }))
+            else -> emptyList()
+        }
+    }
+}
+
+fun checkDrawCondition(): Boolean {
+    return board.flatten().find { it == ' ' } == null
 }
 
 fun askForColumn(playerName: String): Int? {

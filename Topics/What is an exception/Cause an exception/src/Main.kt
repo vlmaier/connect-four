@@ -1,0 +1,1 @@
+fun main(): Unit = throw Exception("Hi there")

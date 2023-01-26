@@ -1,5 +1,5 @@
 <h2>Introduction to MutableList</h2>
-<html><body><p>In previous topics, you learned how to declare variables to store and manipulate data. But what can we do if we want to save and process not one single value but multiple data of the same type? In such cases, we resort to using a list, which allows us to process multiple values of the same type as a single unit. In this topic, we will see what <code class="language-kotlin">MutableList</code> is and how we can use it to store and manipulate data. It is convenient in cases when you don't know exactly how many elements the program will process during its runtime.</p>
+<p>In previous topics, you learned how to declare variables to store and manipulate data. But what can we do if we want to save and process not one single value but multiple data of the same type? In such cases, we resort to using a list, which allows us to process multiple values of the same type as a single unit. In this topic, we will see what <code class="language-kotlin">MutableList</code> is and how we can use it to store and manipulate data. It is convenient in cases when you don't know exactly how many elements the program will process during its runtime.</p>
 <h5 id="introduction-to-mutablelist">Introduction to MutableList</h5>
 <p>The Kotlin Standard Library provides many ways to organize data and to group multiple values. Now we will consider one of them – the <strong>MutableList</strong>.</p>
 <p><code class="language-kotlin">MutableList</code> is an ordered list of variables of the same type. You can access the list items by their indexes.</p>
@@ -7,7 +7,7 @@
 
 println(numbers) // [10.8, 14.3, 13.5, 12.1, 9.7]</code></pre>
 <p>The picture below illustrates a mutable list of five floating-point numbers. Each element has an integer index (<code class="language-kotlin">0-4</code>), so you can access an element by referring to its index. The first element always has the index <code class="language-kotlin">0</code>, and the last element has the index that equals the list size minus one. </p>
-<p><img alt="" src="https://ucarecdn.com/9e6fb36e-293b-4fce-99e5-430e520d0783/"/> <strong>A mutable list of five floating-point elements</strong></p>
+<p><img alt="" height="445" src="https://ucarecdn.com/9e6fb36e-293b-4fce-99e5-430e520d0783/" width="1442"/> <strong>A mutable list of five floating-point elements</strong></p>
 <h5 id="creating-a-mutablelist-with-specified-elements">Creating a MutableList with specified elements</h5>
 <p>In Kotlin, the <strong>mutableListOf()</strong> function is used to create an object of the MutableList class.</p>
 <p>Kotlin can handle any types of MutableList you want: for example, <code class="language-kotlin">Int</code>, <code class="language-kotlin">Long</code>, <code class="language-kotlin">Double</code>, <code class="language-kotlin">Float</code>, <code class="language-kotlin">Char</code>, <code class="language-kotlin">String</code>, <code class="language-kotlin">Byte</code>, or <code class="language-kotlin">Boolean</code>.</p>
@@ -111,4 +111,4 @@ println(alphabet.lastIndex) // 3</code></pre>
 <li>
 <p>Kotlin can handle lists of different types: <code class="language-kotlin">Int</code>, <code class="language-kotlin">Char</code>, <code class="language-kotlin">Double</code>, and so on.</p>
 </li>
-</ul></body></html>
+</ul>

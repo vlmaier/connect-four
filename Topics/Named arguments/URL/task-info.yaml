@@ -3,13 +3,13 @@ files:
 - name: src/Main.kt
   visible: true
   text: |-
-    fun polynomial(x: Int, c: Int, b: Int, a: Int): Int {
+    fun url(host: String, port: Int): String {
         // TODO
     }
   learner_created: false
-feedback_link: https://hyperskill.org/learn/step/7857#comment
+feedback_link: https://hyperskill.org/learn/step/7864#comment
 status: Solved
 feedback:
   message: <html>Correct solution</html>
-  time: "Mon, 30 Jan 2023 10:53:09 UTC"
+  time: "Mon, 30 Jan 2023 11:01:10 UTC"
 record: -1

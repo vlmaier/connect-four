@@ -6,9 +6,13 @@ const val DELIMITER = 'x'
 const val EMPTY = ' '
 const val FIRST_PLAYER_DISK = 'o'
 const val SECOND_PLAYER_DISK = '*'
+const val WIN_POINTS = 2
+const val DRAW_POINTS = 1
 var rows = DEFAULT_ROWS
 var columns = DEFAULT_COLUMNS
-val board = mutableListOf<MutableList<Char>>()
+var board = mutableListOf<MutableList<Char>>()
+var firstPlayerScore = 0
+var secondPlayerScore = 0
 
 fun main() {
     println("Connect Four")
@@ -17,21 +21,31 @@ fun main() {
     println("Second player's name:")
     val secondPlayer = readln()
     val dimensions = askForDimensions()
+    val numberOfGames = askForNumberOfGames()
     println("$firstPlayer VS $secondPlayer")
     rows = dimensions.first
-    columns = dimensions.last
+    columns = dimensions.second
     println("$rows X $columns board")
-    initBoard()
-    printBoard()
-    play(Pair(firstPlayer, secondPlayer))
+    println(if (numberOfGames == 1) "Single game" else "Total $numberOfGames games")
+    for (i in 1..numberOfGames) {
+        if (numberOfGames > 1) {
+            println("Game #$i")
+        }
+        initBoard()
+        printBoard()
+        play(Pair(firstPlayer, secondPlayer), if (i % 2 != 0) firstPlayer else secondPlayer)
+        println("Score")
+        println("$firstPlayer: $firstPlayerScore $secondPlayer: $secondPlayerScore")
+    }
+    println("Game Over!")
 }
 
-fun askForDimensions(): IntRange {
+fun askForDimensions(): Pair<Int, Int> {
     println("Set the board dimensions (Rows x Columns)")
     println("Press Enter for default (6 x 7)")
     val input = readln().lowercase().replace("\\s+".toRegex(), "")
     if (input.isEmpty()) {
-        return DEFAULT_ROWS..DEFAULT_COLUMNS
+        return Pair(DEFAULT_ROWS, DEFAULT_COLUMNS)
     }
     val pattern = "\\d+x\\d+".toRegex(RegexOption.IGNORE_CASE)
     if (!input.matches(pattern)) {
@@ -50,10 +64,26 @@ fun askForDimensions(): IntRange {
         println("Board columns should be from 5 to 9")
         return askForDimensions()
     }
-    return rows..columns
+    return Pair(rows, columns)
+}
+
+fun askForNumberOfGames(): Int {
+    println("Do you want to play single or multiple games?")
+    println("For a single game, input 1 or press Enter")
+    println("Input a number of games:")
+    val numberOfGames = readln()
+    if (numberOfGames == "") {
+        return 1
+    }
+    if (!"^[1-9]\\d*\$".toRegex().matches(numberOfGames)) {
+        println("Invalid input")
+        return askForNumberOfGames()
+    }
+    return numberOfGames.toInt()
 }
 
 fun initBoard() {
+    board = mutableListOf()
     repeat(rows) {
         board.add(MutableList(columns) { EMPTY })
     }
@@ -71,8 +101,8 @@ fun printBoard() {
     println("╚" + "═╩".repeat(columns - 1) + "═╝")
 }
 
-fun play(players: Pair<String, String>) {
-    var currentPlayer = players.first
+fun play(players: Pair<String, String>, whoGoesFirst: String) {
+    var currentPlayer = whoGoesFirst
     while (true) {
         val column = askForColumn(currentPlayer)
         if (column == -1) {
@@ -91,12 +121,17 @@ fun play(players: Pair<String, String>) {
         printBoard()
         if (checkWinningCondition()) {
             println("Player $currentPlayer won")
-            println("Game Over!")
+            if (currentPlayer == players.first) {
+                firstPlayerScore += WIN_POINTS
+            } else {
+                secondPlayerScore += WIN_POINTS
+            }
             break
         }
         if (checkDrawCondition()) {
             println("It is a draw")
-            println("Game Over!")
+            firstPlayerScore += DRAW_POINTS
+            secondPlayerScore += DRAW_POINTS
             break
         }
         currentPlayer = if (currentPlayer == players.first) players.second else players.first

@@ -1,0 +1,31 @@
+type: code
+files:
+- name: src/Main.kt
+  visible: true
+  text: // write the classes here
+  learner_created: false
+feedback_link: https://hyperskill.org/learn/step/6209#comment
+status: Failed
+feedback:
+  message: |
+    Compilation error
+    main.kt:8:14: error: unresolved reference: OperatingSystem
+        val os1: OperatingSystem = OperatingSystem()
+                 ^
+    main.kt:8:32: error: unresolved reference: OperatingSystem
+        val os1: OperatingSystem = OperatingSystem()
+                                   ^
+    main.kt:11:9: error: variable expected
+        os1.name = os1Name
+            ^
+    main.kt:18:14: error: unresolved reference: OperatingSystem
+        val os2: OperatingSystem = OperatingSystem()
+                 ^
+    main.kt:18:32: error: unresolved reference: OperatingSystem
+        val os2: OperatingSystem = OperatingSystem()
+                                   ^
+    main.kt:21:9: error: variable expected
+        os2.name = os2Name
+            ^
+  time: "Mon, 30 Jan 2023 10:14:31 UTC"
+record: -1

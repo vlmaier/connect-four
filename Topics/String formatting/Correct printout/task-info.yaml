@@ -1,0 +1,21 @@
+type: choice
+is_multiple_choice: false
+options:
+- text: '|(00107) - 1.234000e+01 -  true|'
+- text: '|(00107) - 12.340000 -  TRUE|'
+- text: '|(00107) - 1.234000e+01 -  TRUE|'
+- text: (00107) - 1.234000e+01 -  TRUE
+files:
+- name: src/Main.kt
+  visible: true
+  text: |
+    // You can experiment here, it won’t be checked
+
+    fun main(args: Array<String>) {
+      // put your code here
+    }
+  learner_created: false
+feedback_link: https://hyperskill.org/learn/step/21443#comment
+status: Solved
+record: -1
+local_check: false

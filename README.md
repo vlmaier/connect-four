@@ -4,7 +4,7 @@ Repository for learning Kotlin w/ JetBrains Academy [Connect Four](https://hyper
 
 ## Learning outcomes
 
-This project will help you understand how to use basic Kotlin components: data structures, conditions and loops. You'll learn how to interface with a program and develop a fun game to play
+This project will help you understand how to use basic Kotlin components: data structures, conditions and loops. You'll learn how to interface with a program and develop a fun game to play.
 
 ## Game
 

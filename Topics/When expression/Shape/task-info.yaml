@@ -3,7 +3,7 @@ files:
 - name: src/Main.kt
   visible: true
   text: |-
-    fun main(args: Array<String>) {
+    fun main() {
         // write your code here
     }
   learner_created: false

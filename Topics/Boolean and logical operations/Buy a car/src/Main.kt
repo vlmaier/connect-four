@@ -1,6 +1,6 @@
 // You can experiment here, it won’t be checked
 
-fun main(args: Array<String>) {
+fun main() {
     val mercedes = true
     val red = true
     val enoughMoney = true

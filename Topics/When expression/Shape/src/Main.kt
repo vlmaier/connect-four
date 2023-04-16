@@ -1,4 +1,4 @@
-fun main(args: Array<String>) {
+fun main() {
     var message = "You have chosen a "
     when (readln().toInt()) {
         1 -> message += "square"

@@ -1,5 +1,6 @@
 <h2>Jumps and returns</h2>
-<html><body><p>Have you ever had a situation when you wanted to have more control over loop iterations and wished you could jump out of a loop manually? For example, when a special condition occurs or when you need to process only certain cases and skip others? Fortunately, Kotlin has a special tool for it: <strong>structural jump expressions</strong>. There are three structural jump expressions in Kotlin: <code class="language-kotlin">break</code>, <code class="language-kotlin">continue</code>, and <code class="language-kotlin">return</code>. What makes them even more flexible is <strong>labels</strong>. Let's take a look at these features now.</p>
+<div class="step-text">
+<p>Have you ever had a situation when you wanted to have more control over loop iterations and wished you could jump out of a loop manually? For example, when a special condition occurs or when you need to process only certain cases and skip others? Fortunately, Kotlin has a special tool for it: <strong>structural jump expressions</strong>. There are three structural jump expressions in Kotlin: <code class="language-kotlin">break</code>, <code class="language-kotlin">continue</code>, and <code class="language-kotlin">return</code>. What makes them even more flexible is <strong>labels</strong>. Let's take a look at these features now.</p>
 <h5 id="the-break-statement">The Break Statement</h5>
 <p>A <code class="language-kotlin">break</code> expression is used to terminate the nearest enclosing loop. You can literally <strong>break </strong>the loop with your own condition. In the example below, we used it in the if-else case:</p>
 <pre><code class="language-kotlin">for (i in 1..10) {  
@@ -90,7 +91,7 @@ i = 3, j = 1, k = 1</code></pre>
 <h5 id="when-and-structural-jump-expressions">When and structural jump expressions</h5>
 <p>Let's take a look at another useful feature of Kotlin 1.4 or newer. Now you can use <code class="language-kotlin">break</code> and <code class="language-kotlin">continue</code> inside <code class="language-kotlin">when</code> without labels! See how it works.</p>
 <p>Before Kotlin 1.4, you needed to write something like this:</p>
-<pre><code class="language-kotlin">Loop@for (i in 1..10) {
+<pre><code class="language-kotlin">Loop@ for (i in 1..10) {
     when (i) {
         3 -&gt; continue@Loop
         6 -&gt; break@Loop
@@ -112,17 +113,34 @@ i = 3, j = 1, k = 1</code></pre>
 }</code></pre>
 <p>This code does the same thing but looks more clear!</p>
 <h5 id="the-return-statement">The Return Statement</h5>
-<p>Without a label, the <code class="language-kotlin">return</code> statement lets us return the result to the nearest enclosing function. It can be really helpful if we want to jump out of a loop for some reason and skip the remaining loop code:</p>
-<pre><code class="language-kotlin">fun main() {
+<p>Without a label, the <code class="language-kotlin">return</code> statement lets us return the result to the nearest enclosing function. It can be really helpful if we want to jump out of a loop for some reason and skip the remaining loop code or exist of the actual function:</p>
+<pre><code class="language-kotlin">fun foo() {
+    val number = intArrayOf(1, 2, 3, 4, 5)
+    for (it in number) {
+        if (it == 3) return // non-local return directly to the caller of foo()
+        print(it)
+    }
+    println("this point is unreachable")
+}
+
+fun main() { 
+    foo() // calling foo()
+    println()
+    println("foo() is over")
     for (i in 1..10) {
         for (j in 1..10) {
             println("i = $i, j = $j")
-            if (j == 3) return
+            if (j == 3) return // local return to the caller of main()
         }
+        println("this point is unreachable")
     }
-}</code></pre>
+    println("this point is unreachable")
+}
+</code></pre>
 <p>The output result is:</p>
-<pre><code class="language-kotlin">i = 1, j = 1
+<pre><code class="language-kotlin">12
+foo() is over
+i = 1, j = 1
 i = 1, j = 2
 i = 1, j = 3</code></pre>
 <p>In the example above, the internal loop will be interrupted at the third iteration and return the flow of program execution. This way, the outer loop will never reach further than the first iteration.</p>
@@ -133,4 +151,5 @@ i = 1, j = 3</code></pre>
 <p>Finally, with labels, you can exit the outer/inner loop and continue your processing from the place you need.</p>
 <p>All the considered statements can also be used with the <code class="language-kotlin">while</code> loop.</p>
 <p>The <code class="language-kotlin">return</code> statement immediately returns the result of the function, and the code after the <code class="language-kotlin">return</code> keyword will not be executed.</p>
-<p>Remember, it's hard to read and fix code with a lot of structural jump expressions. Be very careful and do not overuse them!</p></body></html>
+<p>Remember, it's hard to read and fix code with a lot of structural jump expressions. Be very careful and do not overuse them!</p>
+</div>

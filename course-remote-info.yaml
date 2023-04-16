@@ -3,7 +3,7 @@ hyperskill_project:
   ide_files: https://stepik.org/media/attachments/lesson/570575/additional_files.json
   is_template_based: false
   use_ide: true
-update_date: "Thu, 02 Feb 2023 18:05:49 UTC"
+update_date: "Sun, 16 Apr 2023 07:04:31 UTC"
 stages:
 - id: 1002
   step: 14778
@@ -40,16 +40,16 @@ topics:
     theory_id: 17408
   - title: Data types
     theory_id: 4388
-  - title: Standard output
-    theory_id: 4425
-  - title: Invoking functions
-    theory_id: 4575
-  - title: Standard input
-    theory_id: 4445
   - title: The classification of basic types
     theory_id: 4455
   - title: Type conversion
     theory_id: 4672
+  - title: Standard output
+    theory_id: 4425
+  - title: Invoking functions
+    theory_id: 4575
+  - title: Standard input with Java Scanner
+    theory_id: 4445
   - title: Reading data with a readln
     theory_id: 11224
   - title: String basics

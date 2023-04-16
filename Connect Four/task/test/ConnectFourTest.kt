@@ -7,9 +7,7 @@ class ConnectFourTest : StageTest<Any>() {
 
     @DynamicTest
     fun cf23Test(): CheckResult {
-        val whiteDiscs = mutableListOf<Pair<Int, Int>>()
-        val blackDiscs = mutableListOf<Pair<Int, Int>>()
-        val inputNoOfGames = listOf<String>("0", "X", "i")
+        val inputNoOfGames = listOf("0", "X", "i")
 
         val main = TestedProgram()
         var outputString = main.start().trim()

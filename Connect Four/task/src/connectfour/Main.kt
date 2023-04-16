@@ -185,9 +185,9 @@ fun <E> transpose(matrix: List<List<E>>): List<List<E>> {
     fun <E> List<E>.tail(): List<E> = this.takeLast(this.size - 1)
     fun <E> E.append(array: List<E>): List<E> = listOf(this).plus(array)
 
-    matrix.filter { it.isNotEmpty() }.let { matrix ->
-        return when (matrix.isNotEmpty()) {
-            true -> matrix.map { it.head() }.append(transpose(matrix.map { it.tail() }))
+    matrix.filter { it.isNotEmpty() }.let { m ->
+        return when (m.isNotEmpty()) {
+            true -> m.map { it.head() }.append(transpose(m.map { it.tail() }))
             else -> emptyList()
         }
     }
@@ -216,7 +216,7 @@ fun askForColumn(playerName: String): Int? {
     return column
 }
 
-fun addToBoard(column: Int, disk: Char): Boolean  {
+fun addToBoard(column: Int, disk: Char): Boolean {
     var isAdded = false
     for (row in board.reversed()) {
         if (row[column - 1] == EMPTY) {

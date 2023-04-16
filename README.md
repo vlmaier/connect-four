@@ -1,3 +1,5 @@
+![](https://github.com/vlmaier/connect-four/actions/workflows/build.yml/badge.svg)
+
 # Connect Four
 
 Repository for learning Kotlin w/ JetBrains Academy [Connect Four](https://hyperskill.org/projects/202?track=18) Project.
